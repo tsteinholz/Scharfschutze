@@ -21,7 +21,7 @@
                                                                                      \/ \_,--.,
                                                                                    '(    )'
                          aten sagen mehr als Worte.                               / |    | \
-                                                                                  |,/    \,/ 
+                                                                                  |,/    \,/
 ```
 ## Building
 We use [cmake](https://www.cs.swarthmore.edu/~adanner/tips/cmake.php) as our build system.
@@ -34,3 +34,4 @@ This game uses SFML2 for handling with the low-level systems like graphical wind
 * [Entity X](https://github.com/alecthomas/entityx) :arrow_right: [Documentation](https://github.com/alecthomas/entityx/blob/master/README.md)
 * [Chipmunk 2D](https://chipmunk-physics.net) :arrow_right: [Documentation](https://chipmunk-physics.net/release/ChipmunkLatest-API-Reference/)
 * [PhysFS](https://icculus.org/physfs/) :arrow_right: [Documentation](https://icculus.org/physfs/docs/html/)
+* [PThreads](https://computing.llnl.gov/tutorials/pthreads/) :arrow_right: [Documentation](https://computing.llnl.gov/tutorials/pthreads/)

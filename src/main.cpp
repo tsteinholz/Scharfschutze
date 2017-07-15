@@ -34,9 +34,36 @@
 #include <entityx/entityx.h>
 #include <physfs.h>
 #include <chipmunk.h>
+#include "slog.h"
+
+#define SCHARFSCHUTZE_VERSION_MAJOR 0
+#define SCHARFSCHUTZE_VERSION_MINOR 0
+#define SCHARFSCHUTZE_VERSION_PATCH 1
 
 int main()
 {
+    slog_init("Scharfschütze.log", "Scharfschütze-Log.cfg", 2 ,3, 1);
+    slog(1, SLOG_INFO, "=====================================================");
+    slog(1, SLOG_INFO, "Scharfschütze v%i.%i.%i!",
+        SCHARFSCHUTZE_VERSION_MAJOR,
+        SCHARFSCHUTZE_VERSION_MINOR,
+        SCHARFSCHUTZE_VERSION_PATCH);
+    slog(1, SLOG_INFO, "SFML v%i.%i.%i!",
+        SFML_VERSION_MAJOR,
+        SFML_VERSION_MINOR,
+        SFML_VERSION_PATCH);
+    slog(1, SLOG_INFO, "Chipmunk v%i.%i.%i!",
+        CP_VERSION_MAJOR,
+        CP_VERSION_MINOR,
+        CP_VERSION_RELEASE);
+    // EntityX does not expose versions.
+    //slog(0, SLOG_INFO, "EntityX Version: %i, %i, %i!");
+    slog(1, SLOG_INFO, "PhysFS v%i.%i.%i!",
+        PHYSFS_VER_MAJOR,
+        PHYSFS_VER_MINOR,
+        PHYSFS_VER_PATCH);
+    slog(1, SLOG_INFO, "=====================================================");
+
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 
     sf::Texture texture;
