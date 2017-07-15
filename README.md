@@ -1,4 +1,4 @@
-# [:hearts:]]] [:clubs:]]] Scharfschütze [:diamonds:]]] [:spades:]]]
+# [:hearts:]]] [:clubs:]]] Scharfschütze [:spades:]]] [:diamonds:]]]
 ```
                                                       (                               ----o-   
                                                      )               _____________   %%% , ,%__________
