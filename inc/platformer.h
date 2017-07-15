@@ -6,7 +6,7 @@
 //          /      |______________________________________|     \             //
 //         /__________)                                (_________\            //
 //                                                                            //
-//                     Copyright(C) 2017 Thomas Steinholz                     //
+//                     Copyright(c) 2017 Thomas Steinholz                     //
 //                                                                            //
 //     Permission is hereby granted, free of charge, to any person            //
 //     obtaining a copy of this software and associated documentation         //
@@ -29,53 +29,35 @@
 //     OTHER DEALINGS IN THE SOFTWARE.                                        //
 //----------------------------------------------------------------------------//
 
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <entityx/entityx.h>
-#include <physfs.h>
-#include <chipmunk.h>
+#ifdef LSS_PLATFORMER_H
+#define LSS_PLATFORMER_H
 
-int main()
+//----------------------------------------------------------------------------//
+// Purpose: This class represents the base class of any plaforming level.
+//----------------------------------------------------------------------------//
+class Platformer : public EntityX
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+public:
+  explicit Platformer() {
+    //systems.add<DebugSystem>();
+    //systems.add<MovementSystem>();
+    //systems.add<CollisionSystem>();
+    //systems.configure();
 
-    sf::Texture texture;
-    if (!texture.loadFromFile("scope.png"))
-    {
-        return EXIT_FAILURE;
+    //level.load(filename);
+
+    //for (auto e : level.entity_data()) {
+      //entityx::Entity entity = entities.create();
+      //entity.assign<Position>(rand() % 100, rand() % 100);
+      //entity.assign<Direction>((rand() % 10) - 5, (rand() % 10) - 5);
     }
+  }
 
-    sf::Sprite sprite(texture);
+  void update(/*TimeDelta dt*/) {
+    //systems.update<DebugSystem>(dt);
+    //systems.update<MovementSystem>(dt);
+    //systems.update<CollisionSystem>(dt);
+  }
+};
 
-    sf::Font font;
-    if (!font.loadFromFile("Roboto-Regular.ttf"))
-    {
-        return EXIT_FAILURE;
-    }
-
-    sf::Text text("Hello SFML", font, 50);
-
-    // Load a music to play
-    //sf::Music music;
-    //if (!music.openFromFile("nice_music.ogg"))
-    //    return EXIT_FAILURE;
-    // Play the music
-    //music.play();
-
-    // Start the game loop
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(sprite);
-        window.draw(text);
-        window.display();
-    }
-    return EXIT_SUCCESS;
-}
+#endif // LSS_PLATFORMER_H
