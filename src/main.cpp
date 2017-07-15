@@ -1,5 +1,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <entityx/entityx.h>
+#include <physfs.h>
+
 int main()
 {
     // Create the main window

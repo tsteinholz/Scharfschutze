@@ -1,14 +1,23 @@
 cmake_minimum_required(VERSION 3.2)
-project(SFMLDemo)
+project(Scharfschutze)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES src/main.cpp)
-add_executable(SFMLDemo ${SOURCE_FILES})
+add_executable(Scharfschutze ${SOURCE_FILES})
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
+
 find_package(SFML REQUIRED system window graphics network audio)
-if (SFML_FOUND)
-    include_directories(${SFML_INCLUDE_DIR})
-    target_link_libraries(SFMLDemo ${SFML_LIBRARIES})
-endif()
+find_package(EntityX)
+find_package(PhysFS)
+
+include_directories(
+  ${SFML_INCLUDE_DIR}
+  ${ENTITYX_INCLUDE_DIR}
+  ${PHYSFS_INCLUDE_DIR})
+
+target_link_libraries(Scharfschutze
+  ${SFML_LIBRARIES}
+  ${ENTITYX_LIBRARIES}
+  ${PHYSFS_LIBRARY})
