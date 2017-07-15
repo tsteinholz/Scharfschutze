@@ -1,4 +1,4 @@
-# Scharfschütze
+# --╤╗ Scharfschütze ╔╤--
 
 ## Building
 We use [cmake](https://www.cs.swarthmore.edu/~adanner/tips/cmake.php) as our build system.
