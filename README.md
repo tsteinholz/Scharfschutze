@@ -5,5 +5,3 @@
 
 * [Entity X](https://github.com/alecthomas/entityx) [Documentation](https://github.com/alecthomas/entityx/blob/master/README.md)
 * [PhysFS](https://icculus.org/physfs/) [Documentation](https://icculus.org/physfs/docs/html/)
-
-sd
