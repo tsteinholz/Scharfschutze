@@ -40,6 +40,9 @@
 #define SCHARFSCHUTZE_VERSION_MINOR 0
 #define SCHARFSCHUTZE_VERSION_PATCH 1
 
+const int focal_point_speed = 5;
+const int layer_difference = 1;
+
 struct PositionComponent {
     explicit PositionComponent(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
     float x, y;
@@ -51,13 +54,15 @@ struct DirectionComponent {
 };
 
 struct ParallaxComponent {
-    ParallaxComponent(int layer = 0) : layer(layer) {}
+    ParallaxComponent(int layer = 0, int hspeed = 0) : layer(layer), hspeed(hspeed) {}
     int layer;
+    int hspeed;
 };
 
 struct DrawableComponent {
-    DrawableComponent(sf::Sprite sprite) : sprite(sprite) {}
+    DrawableComponent(sf::Sprite sprite) : window(window), sprite(sprite) {}
     sf::Sprite sprite;
+    sf::RenderWindow *window;
 };
 
 struct MovementSystem : public entityx::System<MovementSystem> {
@@ -68,6 +73,19 @@ struct MovementSystem : public entityx::System<MovementSystem> {
             position.y += direction.y * dt;
     });
   };
+};
+
+struct RenderSystem : public entityx::System<RenderSystem> {
+    RenderSystem(sf::RenderTarget *renderTarget) : renderTarget(renderTarget) {}
+
+    void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override {
+        es.each<DrawableComponent>([dt](entityx::Entity entity, DrawableComponent &drawable) {
+            RenderTarget->draw(drawable.sprite);
+        });
+    };
+
+private:
+    sf::RenderTarget *renderTarget;
 };
 
 int main()
@@ -101,7 +119,7 @@ int main()
     entityx::Entity parallax_background_layer1 = ex.entities.create();
     parallax_background_layer1.assign<PositionComponent>(1.0f, 2.0f);
     parallax_background_layer1.assign<DirectionComponent>();
-    parallax_background_layer1.assign<ParallaxComponent>(1);
+    parallax_background_layer1.assign<ParallaxComponent>(1, (focal_point_speed - (2 * layer_difference)));
     sf::Texture layer1_texture;
     layer1_texture.loadFromFile("res/img/background/layer-1.jpg");
     sf::Sprite layer1_sprite(layer1_texture);
@@ -110,7 +128,7 @@ int main()
     entityx::Entity parallax_background_layer2 = ex.entities.create();
     parallax_background_layer2.assign<PositionComponent>(1.0f, 2.0f);
     parallax_background_layer2.assign<DirectionComponent>();
-    parallax_background_layer2.assign<ParallaxComponent>(1);
+    parallax_background_layer2.assign<ParallaxComponent>(1, focal_point_speed - layer_difference);
     sf::Texture layer2_texture;
     layer2_texture.loadFromFile("res/img/background/layer-2.png");
     sf::Sprite layer2_sprite(layer2_texture);
@@ -119,7 +137,7 @@ int main()
     entityx::Entity parallax_background_layer3 = ex.entities.create();
     parallax_background_layer3.assign<PositionComponent>(1.0f, 2.0f);
     parallax_background_layer3.assign<DirectionComponent>();
-    parallax_background_layer3.assign<ParallaxComponent>(1);
+    parallax_background_layer3.assign<ParallaxComponent>(1, focal_point_speed);
     sf::Texture layer3_texture;
     layer3_texture.loadFromFile("res/img/background/layer-3.png");
     sf::Sprite layer3_sprite(layer3_texture);
@@ -128,7 +146,7 @@ int main()
     entityx::Entity parallax_background_layer4 = ex.entities.create();
     parallax_background_layer4.assign<PositionComponent>(1.0f, 2.0f);
     parallax_background_layer4.assign<DirectionComponent>();
-    parallax_background_layer4.assign<ParallaxComponent>(1);
+    parallax_background_layer4.assign<ParallaxComponent>(1, focal_point_speed + layer_difference);
     sf::Texture layer4_texture;
     layer4_texture.loadFromFile("res/img/background/layer-4.png");
     sf::Sprite layer4_sprite(layer4_texture);
