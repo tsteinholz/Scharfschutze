@@ -40,6 +40,36 @@
 #define SCHARFSCHUTZE_VERSION_MINOR 0
 #define SCHARFSCHUTZE_VERSION_PATCH 1
 
+struct PositionComponent {
+    explicit PositionComponent(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
+    float x, y;
+};
+
+struct DirectionComponent {
+    DirectionComponent(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
+    float x, y;
+};
+
+struct ParallaxComponent {
+    ParallaxComponent(int layer = 0) : layer(layer) {}
+    int layer;
+};
+
+struct DrawableComponent {
+    DrawableComponent(sf::Sprite sprite) : sprite(sprite) {}
+    sf::Sprite sprite;
+};
+
+struct MovementSystem : public entityx::System<MovementSystem> {
+  void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override {
+    es.each<PositionComponent, DirectionComponent>
+        ([dt](entityx::Entity entity, PositionComponent &position, DirectionComponent &direction) {
+            position.x += direction.x * dt;
+            position.y += direction.y * dt;
+    });
+  };
+};
+
 int main()
 {
     slog_init("Scharfschütze.log", "Scharfschütze-Log.cfg", 2 ,3, 1);
@@ -64,18 +94,54 @@ int main()
         PHYSFS_VER_PATCH);
     slog(1, SLOG_INFO, "=====================================================");
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(1040, 800), "SFML window");
+
+    entityx::EntityX ex;
+
+    entityx::Entity parallax_background_layer1 = ex.entities.create();
+    parallax_background_layer1.assign<PositionComponent>(1.0f, 2.0f);
+    parallax_background_layer1.assign<DirectionComponent>();
+    parallax_background_layer1.assign<ParallaxComponent>(1);
+    sf::Texture layer1_texture;
+    layer1_texture.loadFromFile("res/img/background/layer-1.jpg");
+    sf::Sprite layer1_sprite(layer1_texture);
+    parallax_background_layer1.assign<DrawableComponent>(layer1_sprite);
+
+    entityx::Entity parallax_background_layer2 = ex.entities.create();
+    parallax_background_layer2.assign<PositionComponent>(1.0f, 2.0f);
+    parallax_background_layer2.assign<DirectionComponent>();
+    parallax_background_layer2.assign<ParallaxComponent>(1);
+    sf::Texture layer2_texture;
+    layer2_texture.loadFromFile("res/img/background/layer-2.png");
+    sf::Sprite layer2_sprite(layer2_texture);
+    parallax_background_layer2.assign<DrawableComponent>(layer2_sprite);
+
+    entityx::Entity parallax_background_layer3 = ex.entities.create();
+    parallax_background_layer3.assign<PositionComponent>(1.0f, 2.0f);
+    parallax_background_layer3.assign<DirectionComponent>();
+    parallax_background_layer3.assign<ParallaxComponent>(1);
+    sf::Texture layer3_texture;
+    layer3_texture.loadFromFile("res/img/background/layer-3.png");
+    sf::Sprite layer3_sprite(layer3_texture);
+    parallax_background_layer3.assign<DrawableComponent>(layer3_sprite);
+
+    entityx::Entity parallax_background_layer4 = ex.entities.create();
+    parallax_background_layer4.assign<PositionComponent>(1.0f, 2.0f);
+    parallax_background_layer4.assign<DirectionComponent>();
+    parallax_background_layer4.assign<ParallaxComponent>(1);
+    sf::Texture layer4_texture;
+    layer4_texture.loadFromFile("res/img/background/layer-4.png");
+    sf::Sprite layer4_sprite(layer4_texture);
+    parallax_background_layer4.assign<DrawableComponent>(layer4_sprite);
 
     sf::Texture texture;
-    if (!texture.loadFromFile("scope.png"))
+    if (!texture.loadFromFile("res/img/background/nightsky.jpg"))
     {
         return EXIT_FAILURE;
     }
 
-    sf::Sprite sprite(texture);
-
     sf::Font font;
-    if (!font.loadFromFile("Roboto-Regular.ttf"))
+    if (!font.loadFromFile("res/ttf/Roboto-Regular.ttf"))
     {
         return EXIT_FAILURE;
     }
@@ -100,7 +166,6 @@ int main()
         }
 
         window.clear();
-        window.draw(sprite);
         window.draw(text);
         window.display();
     }
