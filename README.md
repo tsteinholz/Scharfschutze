@@ -23,6 +23,8 @@
                          aten sagen mehr als Worte.                               / |    | \
                                                                                   |,/    \,/
 ```
+![Game Rendering](https://raw.githubusercontent.com/tsteinholz/Scharfschutze/master/res/screenshots/render.png)
+
 ## Building
 We use [cmake](https://www.cs.swarthmore.edu/~adanner/tips/cmake.php) (3.2+) as our build system.
 
