@@ -29,35 +29,28 @@
 //     OTHER DEALINGS IN THE SOFTWARE.                                        //
 //----------------------------------------------------------------------------//
 
-#ifdef LSS_PLATFORMER_H
-#define LSS_PLATFORMER_H
+#include "level.h"
 
-//----------------------------------------------------------------------------//
-// Purpose: This class represents the base class of any plaforming level.
-//----------------------------------------------------------------------------//
-class Platformer : public EntityX
-{
-public:
-  explicit Platformer() {
-    //systems.add<DebugSystem>();
-    //systems.add<MovementSystem>();
-    //systems.add<CollisionSystem>();
-    //systems.configure();
+Platformer::Platformer() { }
 
-    //level.load(filename);
+MovementSystem::update(EntityManager &es, EventManager &events, TimeDelta dt) override {
+    es.each<PositionComponent, DirectionComponent>([dt](
+        Entity entity, PositionComponent &position, DirectionComponent &direction) {
+            position.x += direction.x * dt;
+            position.y += direction.y * dt;
+    });
+}
 
-    //for (auto e : level.entity_data()) {
-      //entityx::Entity entity = entities.create();
-      //entity.assign<Position>(rand() % 100, rand() % 100);
-      //entity.assign<Direction>((rand() % 10) - 5, (rand() % 10) - 5);
-    }
-  }
+RenderSystem::RenderSystem(sf::RenderTarget *renderTarget)
+    : renderTarget(renderTarget) { }
 
-  void update(/*TimeDelta dt*/) {
-    //systems.update<DebugSystem>(dt);
-    //systems.update<MovementSystem>(dt);
-    //systems.update<CollisionSystem>(dt);
-  }
+RenderSystem::update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override {
+    es.each<DrawableComponent>([dt](entityx::Entity entity, DrawableComponent &drawable) {
+        RenderTarget->draw(drawable.sprite);
+    });
+}
+
+
+private:
+    sf::RenderTarget *renderTarget;
 };
-
-#endif // LSS_PLATFORMER_H

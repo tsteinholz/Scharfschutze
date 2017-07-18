@@ -37,3 +37,4 @@ This game uses SFML2 for handling with the low-level systems like graphical wind
 * [Chipmunk 2D](https://chipmunk-physics.net) :arrow_right: [Documentation](https://chipmunk-physics.net/release/ChipmunkLatest-API-Reference/)
 * [PhysFS](https://icculus.org/physfs/) :arrow_right: [Documentation](https://icculus.org/physfs/docs/html/)
 * [PThreads](https://computing.llnl.gov/tutorials/pthreads/) :arrow_right: [Documentation](https://computing.llnl.gov/tutorials/pthreads/)
+* [JSONcpp](https://github.com/open-source-parsers/jsoncpp) :arrow_right: [Documentation](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html)
