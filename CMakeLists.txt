@@ -4,9 +4,9 @@ project(Scharfschutze)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-  src/main.cpp
-  src/slog.c
-  src/level.cpp
+    src/third-party/slog.c
+    src/main.cpp
+    src/level.cpp
 )
 add_executable(Scharfschutze ${SOURCE_FILES})
 

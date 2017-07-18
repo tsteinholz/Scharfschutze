@@ -1,6 +1,6 @@
 /*
  * The MIT License (MIT)
- *  
+ *
  *  Copyleft (C) 2015  Sun Dro (a.k.a. kala13x)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,7 +31,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <time.h>
-#include "slog.h"
+#include "third-party/slog.h"
 
 
 /* Max size of string */
@@ -85,10 +85,10 @@ void slog_get_date(SlogDate *sdate)
 }
 
 
-/* 
- * Get library version. Function returns version and build number of slog 
- * library. Return value is char pointer. Argument min is flag for output 
- * format. If min is 1, function returns version in full  format, if flag 
+/*
+ * Get library version. Function returns version and build number of slog
+ * library. Return value is char pointer. Argument min is flag for output
+ * format. If min is 1, function returns version in full  format, if flag
  * is 0 function returns only version numbers, For examle: 1.3.0
 -*/
 const char* slog_version(int min)
@@ -96,11 +96,11 @@ const char* slog_version(int min)
     static char verstr[128];
 
     /* Version short */
-    if (min) sprintf(verstr, "%d.%d.%d", 
+    if (min) sprintf(verstr, "%d.%d.%d",
         SLOGVERSION_MAX, SLOGVERSION_MIN, SLOGBUILD_NUM);
 
     /* Version long */
-    else sprintf(verstr, "%d.%d build %d (%s)", 
+    else sprintf(verstr, "%d.%d build %d (%s)",
         SLOGVERSION_MAX, SLOGVERSION_MIN, SLOGBUILD_NUM, __DATE__);
 
     return verstr;
@@ -108,12 +108,12 @@ const char* slog_version(int min)
 
 
 /*
- * strclr - Colorize string. Function takes color value and string 
- * and returns colorized string as char pointer. First argument clr 
- * is color value (if it is invalid, function retunrs NULL) and second 
+ * strclr - Colorize string. Function takes color value and string
+ * and returns colorized string as char pointer. First argument clr
+ * is color value (if it is invalid, function retunrs NULL) and second
  * is string with va_list of arguments which one we want to colorize.
  */
-char* strclr(const char* clr, char* str, ...) 
+char* strclr(const char* clr, char* str, ...)
 {
     /* String buffers */
     static char output[MAXMSG];
@@ -163,8 +163,8 @@ void slog_to_file(char *out, const char *fname, SlogDate *sdate)
 
 
 /*
- * parse_config - Parse config file. Argument cfg_name is path 
- * of config file name to be parsed. Function opens config file 
+ * parse_config - Parse config file. Argument cfg_name is path
+ * of config file name to be parsed. Function opens config file
  * and parses LOGLEVEL and LOGTOFILE flags from it.
  */
 int parse_config(const char *cfg_name)
@@ -225,11 +225,11 @@ int parse_config(const char *cfg_name)
 
 
 /*
- * Retunr string in slog format. Function takes arguments 
- * and returns string in slog format without printing and 
+ * Retunr string in slog format. Function takes arguments
+ * and returns string in slog format without printing and
  * saveing in file. Return value is char pointer.
  */
-char* slog_get(SlogDate *pDate, char *msg, ...) 
+char* slog_get(SlogDate *pDate, char *msg, ...)
 {
     /* Used variables */
     static char output[MAXMSG];
@@ -242,8 +242,8 @@ char* slog_get(SlogDate *pDate, char *msg, ...)
     va_end(args);
 
     /* Generate output string with date */
-    sprintf(output, "%02d.%02d.%02d-%02d:%02d:%02d.%02d - %s", 
-        pDate->year, pDate->mon, pDate->day, pDate->hour, 
+    sprintf(output, "%02d.%02d.%02d-%02d:%02d:%02d.%02d - %s",
+        pDate->year, pDate->mon, pDate->day, pDate->hour,
         pDate->min, pDate->sec, pDate->usec, string);
 
     /* Return output */
@@ -260,12 +260,12 @@ char* slog_get(SlogDate *pDate, char *msg, ...)
 void slog(int level, int flag, const char *msg, ...)
 {
     /* Lock for safe */
-    if (slg.td_safe) 
+    if (slg.td_safe)
     {
         int rc;
         if ((rc = pthread_mutex_lock(&slog_mutex)))
         {
-            printf("<%s:%d> %s: [ERROR] Can not lock mutex: %s\n", 
+            printf("<%s:%d> %s: [ERROR] Can not lock mutex: %s\n",
                 __FILE__, __LINE__, __FUNCTION__, strerror(rc));
             exit(EXIT_FAILURE);
         }
@@ -294,7 +294,7 @@ void slog(int level, int flag, const char *msg, ...)
     if(!level || level <= slg.level || level <= slg.file_level)
     {
         /* Handle flags */
-        switch(flag) 
+        switch(flag)
         {
             case SLOG_LIVE:
                 strncpy(color, CLR_NORMAL, sizeof(color));
@@ -344,11 +344,11 @@ void slog(int level, int flag, const char *msg, ...)
         if (slg.to_file && level <= slg.file_level)
         {
             if (slg.pretty) output = slog_get(&mdate, "%s\n", prints);
-            else 
+            else
             {
                 if (flag != SLOG_NONE) sprintf(prints, "[%s] %s", alarm, string);
                 output = slog_get(&mdate, "%s\n", prints);
-            } 
+            }
 
             /* Add log line to file */
             slog_to_file(output, slg.fname, &mdate);
@@ -356,12 +356,12 @@ void slog(int level, int flag, const char *msg, ...)
     }
 
     /* Done, unlock mutex */
-    if (slg.td_safe) 
+    if (slg.td_safe)
     {
         int rc;
         if ((rc = pthread_mutex_unlock(&slog_mutex)))
         {
-            printf("<%s:%d> %s: [ERROR] Can not deinitialize mutex: %s\n", 
+            printf("<%s:%d> %s: [ERROR] Can not deinitialize mutex: %s\n",
                 __FILE__, __LINE__, __FUNCTION__, strerror(rc));
             exit(EXIT_FAILURE);
         }
@@ -370,9 +370,9 @@ void slog(int level, int flag, const char *msg, ...)
 
 
 /*
- * Initialize slog library. Function parses config file and reads log 
- * level and save to file flag from config. First argument is file name 
- * where log will be saved and second argument conf is config file path 
+ * Initialize slog library. Function parses config file and reads log
+ * level and save to file flag from config. First argument is file name
+ * where log will be saved and second argument conf is config file path
  * to be parsedand third argument lvl is log level for this message.
  */
 void slog_init(const char* fname, const char* conf, int lvl, int flvl, int t_safe)
@@ -398,14 +398,14 @@ void slog_init(const char* fname, const char* conf, int lvl, int flvl, int t_saf
             (rc = pthread_mutex_init(&slog_mutex, &m_attr)) ||
             (rc = pthread_mutexattr_destroy(&m_attr)))
         {
-            printf("<%s:%d> %s: [ERROR] Can not initialize mutex: %s\n", 
+            printf("<%s:%d> %s: [ERROR] Can not initialize mutex: %s\n",
                 __FILE__, __LINE__, __FUNCTION__, strerror(rc));
             slg.td_safe = 0;
         }
     }
 
     /* Parse config file */
-    if (conf != NULL) 
+    if (conf != NULL)
     {
         slg.fname = fname;
         status = parse_config(conf);

@@ -34,7 +34,7 @@
 #include <physfs.h>
 #include <chipmunk.h>
 #include <json/value.h>
-#include "slog.h"
+#include "third-party/slog.h"
 #include "level.h"
 
 #define SCHARFSCHUTZE_VERSION_MAJOR 0
