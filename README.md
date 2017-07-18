@@ -32,15 +32,15 @@ Battle through a 2D Platformer for strategic sniping advantages to take out your
 ![Game Rendering 2](https://raw.githubusercontent.com/tsteinholz/Scharfschutze/master/res/screenshots/render2.png)
 
 ## Building
-We use [cmake](https://www.cs.swarthmore.edu/~adanner/tips/cmake.php) (3.2+) as our build system.
+We use [cmake](https://www.cs.swarthmore.edu/~adanner/tips/cmake.php) (v3.2+) as our build system.
 
 ### Required Libraries
 This game uses SFML2 for handling with the low-level systems like graphical windows, system access, audio, graphical rendering and has the potential for networking. For overall project architecture we use EntityX to give us a good platform for an Component based Entity System within our game. We use Chipmunk2d for fast and accurate 2d physics within our Component based Entity System, for more about how this is architected check out the wiki. Finally we use PhysFS as a faster and more robust alternative to SFML2's file system library, this library also allows for loading compressed and uncompress data with ease.
 
 
-* [SFML 2](https://github.com/SFML/SFML) :arrow_right: [Documentation](https://www.sfml-dev.org/documentation/2.4.2/)
-* [Entity X](https://github.com/alecthomas/entityx) :arrow_right: [Documentation](https://github.com/alecthomas/entityx/blob/master/README.md)
-* [Chipmunk 2D](https://chipmunk-physics.net) :arrow_right: [Documentation](https://chipmunk-physics.net/release/ChipmunkLatest-API-Reference/)
-* [PhysFS](https://icculus.org/physfs/) :arrow_right: [Documentation](https://icculus.org/physfs/docs/html/)
-* [PThreads](https://computing.llnl.gov/tutorials/pthreads/) :arrow_right: [Documentation](https://computing.llnl.gov/tutorials/pthreads/)
-* [JSONcpp](https://github.com/open-source-parsers/jsoncpp) :arrow_right: [Documentation](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html)
+* [SFML 2](https://github.com/SFML/SFML) :arrow_right: [Documentation](https://www.sfml-dev.org/documentation/2.4.2/) [Graphics, Audio, Networking, etc.]
+* [Entity X](https://github.com/alecthomas/entityx) :arrow_right: [Documentation](https://github.com/alecthomas/entityx/blob/master/README.md) [Component based Entity System]
+* [Chipmunk 2D](https://chipmunk-physics.net) :arrow_right: [Documentation](https://chipmunk-physics.net/release/ChipmunkLatest-API-Reference/) [Physics]
+* [PhysFS](https://icculus.org/physfs/) :arrow_right: [Documentation](https://icculus.org/physfs/docs/html/) [File System]
+* [PThreads](https://computing.llnl.gov/tutorials/pthreads/) :arrow_right: [Documentation](https://computing.llnl.gov/tutorials/pthreads/) [Logging]
+* [JSONcpp](https://github.com/open-source-parsers/jsoncpp) :arrow_right: [Documentation](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html) [File Encoding]
