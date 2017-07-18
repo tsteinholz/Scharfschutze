@@ -23,6 +23,10 @@
                          aten sagen mehr als Worte.                               / |    | \
                                                                                   |,/    \,/
 ```
+Battle through a 2D Platformer for strategic sniping advantages to take out your enemies.
+
+# Prototype Mockup
+
 ![Game Rendering](https://raw.githubusercontent.com/tsteinholz/Scharfschutze/master/res/screenshots/render.png)
 
 ![Game Rendering 2](https://raw.githubusercontent.com/tsteinholz/Scharfschutze/master/res/screenshots/render2.png)
