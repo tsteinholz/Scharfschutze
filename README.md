@@ -25,6 +25,8 @@
 ```
 ![Game Rendering](https://raw.githubusercontent.com/tsteinholz/Scharfschutze/master/res/screenshots/render.png)
 
+![Game Rendering 2](https://raw.githubusercontent.com/tsteinholz/Scharfschutze/master/res/screenshots/render2.png)
+
 ## Building
 We use [cmake](https://www.cs.swarthmore.edu/~adanner/tips/cmake.php) (3.2+) as our build system.
 
