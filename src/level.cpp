@@ -49,8 +49,3 @@ RenderSystem::update(entityx::EntityManager &es, entityx::EventManager &events, 
         RenderTarget->draw(drawable.sprite);
     });
 }
-
-
-private:
-    sf::RenderTarget *renderTarget;
-};

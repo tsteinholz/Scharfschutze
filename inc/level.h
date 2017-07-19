@@ -65,8 +65,8 @@ struct ParallaxComponent {
 // Purpose: TODO
 //----------------------------------------------------------------------------//
 struct DrawableComponent {
-    DrawableComponent(sf::Sprite sprite) : window(window), sprite(sprite) {}
     sf::Sprite sprite;
+    DrawableComponent(sf::Sprite sprite) : window(window), sprite(sprite) {}
     sf::RenderWindow *window;
 };
 
